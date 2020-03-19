@@ -119,10 +119,48 @@ Student::~Student()
 
 int main()
 {  
-
 	// Write your code for Task 1
+	list<Student> c;
+	list<Student>::iterator i;
+	bool exit = false;
+	string name;
+	double grade;
+
+	while(!exit){
+		//Get the student information from stdin
+		cout << "Enter the student's name and grade: ";
+		cin >> name;
+
+		//Allow the program to exit
+		if(name == "exit")return 0;
 		
+		cin >> grade;
+
+		//Create a student object
+		Student tmp(name.c_str(), grade);
+
+		if((c.size() == 0) || ((*(--c.end())).getgrade() < tmp.getgrade())){
+			c.push_back(tmp);
+		}else{
+			//Add the student object to proper position in the list
+			for(i=c.begin(); i!=c.end(); ++i){
+				if((*i).getgrade() >= tmp.getgrade()){
+					c.insert(i, tmp);
+					break;
+				}
+			}
+		}
+
+		//Print contents of the list
+		cout << "\tCurrent students in list(ascending):" << endl;
+		for(i=c.begin(); i!=c.end(); ++i){
+			cout << "\t\t" << *i << endl;
+		}
+		cout << "\tCurrent students in list(descending):" << endl;
+		list<Student>::reverse_iterator r;
+		for(r=c.rbegin(); r != c.rend(); ++r){
+			cout << "\t\t" << *r << endl;
+		}
+	}
+	return 0;
 }
-
-
-
